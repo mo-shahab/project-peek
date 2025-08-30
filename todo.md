@@ -1,5 +1,3 @@
-Great — now we're talking **developer workflow utilities**! If you're making **`ppeek` a developer’s multi-tool for projects**, you can build a nice ecosystem around it. Here are some **practical, no-nonsense ideas** that developers often need but end up writing ad-hoc scripts for:
-
 ---
 
 ## **Core Command Ideas for `ppeek`**
