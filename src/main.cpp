@@ -64,18 +64,18 @@ Node * build_tree(const std::string& path, const std::string& name)
     struct dirent* entry;
     while ((entry = readdir(dir)) != nullptr) 
     {
-        std::string entryName = entry->d_name;
+        std::string entry_name = entry->d_name;
 
         // Skip current and parent directories
-        if (entryName == "." || entryName == "..")
+        if (entry_name == "." || entry_name == "..")
             continue;
 
         // Skip .git entirely
-        if (entryName == ".git")
+        if (entry_name == ".git")
             continue;
 
-        std::string fullpath = path + "/" + name;
-        // std::cout << fullpath << "\n";
+        std::string fullpath = path + "/" + entry_name;
+        std::cout << fullpath << "\n";
 
         // Check if directory and recurse
         struct stat statbuf;
@@ -83,12 +83,12 @@ Node * build_tree(const std::string& path, const std::string& name)
         {
             if(S_ISDIR(statbuf.st_mode))
             {
-                Node* child = build_tree(fullpath, entryName);
+                Node* child = build_tree(fullpath, entry_name);
                 node->children.push_back(child);
             }
             else 
             {
-                Node* child = new Node{entryName, false, {}};
+                Node* child = new Node{entry_name, false, {}};
                 node->children.push_back(child);
             }
         }
