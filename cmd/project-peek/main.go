@@ -21,6 +21,7 @@ var skiplist =  []string {
 	"dist",
 	".idea",
 	".vscode",
+	"venv",
 } 
 
 func shouldskip(name string) bool {
@@ -106,7 +107,7 @@ func PrintTree(entry *DirEntry, prefix string, isLast bool) {
 
 func main() {
 
-	dirPtr:= flag.String("dir", ".", "Directory")
+	dirPtr:= flag.String("d", ".", "Directory")
 	showhidden := flag.Bool("a", false, "Show Hidden files")
 
 	flag.Parse()
