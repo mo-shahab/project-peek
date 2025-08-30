@@ -1,22 +1,19 @@
-project-name/
-├─ src/                  # Main source code
-│  ├─ main.c             # Entry point of the program
-│  ├─ project.c          # Core implementation file(s)
-│  └─ utils.c            # Utility/helper functions
-│
-├─ include/              # Header files (public interfaces)
-│  ├─ project.h          # Header for core logic
-│  └─ utils.h            # Header for helper functions
-│
-├─ tests/                # Unit tests or integration tests
-│  └─ test_main.c        # Your test runner
-│
-├─ build/                # (Optional) Compiled artifacts, binaries, or intermediate files
-│
-├─ docs/                 # Documentation (usage, structure, examples)
-│  └─ README.md
-│
-├─ .gitignore            # Ignore build artifacts, etc.
-├─ Makefile              # Build script (or CMakeLists.txt if using CMake)
-└─ README.md             # Project overview, installation, usage
+output of the command: 
 
+Directory Tree:
+/home/shahab/dev/personal/project-peek
+|--bin
+|--cmd
+│   └──project-peek
+│      └──main.go
+|--go.mod
+|--internal
+│   └──tree
+│      └──tree.go
+|--project-peek
+|--readme
+└──src
+   |--a.out
+   └──main.cpp
+
+7 directories, 7 files
