@@ -15,6 +15,11 @@ type DirEntry struct {
 	Children []*DirEntry
 }
 
+type Counter struct {
+	dirs int
+	files int
+}
+
 var skiplist =  []string {
 	".git",
 	"node_modules",
@@ -23,6 +28,18 @@ var skiplist =  []string {
 	".vscode",
 	"venv",
 } 
+
+func (counter *Counter) count (isdir bool) {
+	if isdir {
+		counter.dirs += 1
+	} else {
+		counter.files += 1
+	} 
+}
+
+func (counter *Counter) printCount() string {
+	return fmt.Sprintf("\n%d directories, %d files", counter.dirs, counter.files)
+}
 
 func shouldskip(name string) bool {
 	for _, skip := range skiplist {
@@ -34,7 +51,7 @@ func shouldskip(name string) bool {
 	return false
 }
 
-func buildTree(rootpath string, showhidden * bool) (*DirEntry, error) {
+func buildTree(rootpath string, showhidden * bool, counter *Counter) (*DirEntry, error) {
 	info, err := os.Stat(rootpath)
 	if err != nil {
 		return nil, err
@@ -45,6 +62,8 @@ func buildTree(rootpath string, showhidden * bool) (*DirEntry, error) {
 		Path: rootpath,
 		IsDir: info.IsDir(),
 	}
+
+	counter.count(entry.IsDir)
 
 	if entry.IsDir {
 		if shouldskip(entry.Name) {
@@ -64,7 +83,7 @@ func buildTree(rootpath string, showhidden * bool) (*DirEntry, error) {
 			}
 			
 			childpath := filepath.Join(rootpath, e.Name())
-			childEntry, err := buildTree(childpath, showhidden)
+			childEntry, err := buildTree(childpath, showhidden, counter)
 
 			if(err != nil) {
 				fmt.Println("Error reading %s: %v\n", childpath, err)
@@ -113,7 +132,8 @@ func main() {
 	flag.Parse()
 
 	rootpath := *dirPtr 
-	tree, err := buildTree(rootpath, showhidden)
+	counter := new (Counter)
+	tree, err := buildTree(rootpath, showhidden, counter)
 	if err != nil {
 		fmt.Printf("Error building directory tree: %v\n", err)
 		return
@@ -133,4 +153,6 @@ func main() {
 	for i, child := range tree.Children {
 		PrintTree(child, "", i == len(tree.Children) -1)
 	}
+	
+	fmt.Println(counter.printCount())
 }
