@@ -14,11 +14,6 @@ type DirEntry struct {
 	Children []*DirEntry
 }
 
-type Counter struct {
-	dirs int
-	files int
-}
-
 var Skiplist =  []string {
 	".git",
 	"node_modules",
@@ -36,18 +31,6 @@ func Shouldskip(name string) bool {
 	}
 
 	return false
-}
-
-func (counter *Counter) Count (isdir bool) {
-	if isdir {
-		counter.dirs += 1
-	} else {
-		counter.files += 1
-	} 
-}
-
-func (counter *Counter) PrintCount() string {
-	return fmt.Sprintf("\n%d directories, %d files", counter.dirs, counter.files)
 }
 
 func BuildTree(rootpath string, showhidden * bool, counter *Counter) (*DirEntry, error) {
